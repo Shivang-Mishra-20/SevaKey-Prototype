@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SevaKey - Healthcare App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Mobile Container -->
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">9:41</div>
+            <div class="status-right">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div class="wifi-icon"></div>
+                <div class="battery"></div>
+            </div>
+        </div>
+
+        <!-- Landing Screen -->
+        <div class="screen landing-screen" id="landingScreen">
+            <div class="logo-container">
+                <img src="Untitled design (3).png" alt="SevaKey Logo" class="logo">
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+
+        <!-- Auth Screen -->
+        <div class="screen auth-screen hidden" id="authScreen">
+            <div class="welcome-section">
+                <div class="welcome-text">Welcome to</div>
+                <div class="app-name">
+                    <span class="seva">Seva</span><span class="key">Key</span>
+                </div>
+                <img src="Untitled design (3).png" alt="SevaKey Logo" class="auth-logo">
+            </div>
+            <div class="auth-buttons">
+                <button type="button" class="button btn-primary" data-action="goToSignUp">Sign Up</button>
+                <button type="button" class="button btn-secondary" data-action="handleLogin">Login</button>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div class="screen login-form hidden" id="loginScreen">
+            <button type="button" class="back-btn" data-action="goBackToAuthFromLogin"></button>
+            <div class="login-header">
+                <div class="login-header-small">Welcome Back</div>
+                <div class="login-header-large">Login</div>
+            </div>
+            <img src="Untitled design (3).png" alt="SevaKey Logo" class="signup-logo">
+            <div class="form-container">
+                <div class="form-field">
+                    <input id="loginName" type="text" placeholder="Full Name">
+                    <div id="loginNameError" class="error-text hidden">Please enter your full name</div>
+                </div>
+                <div class="form-field password-wrapper">
+                    <input id="loginPassword" type="password" placeholder="Password">
+                    <button type="button" class="eye-btn" data-target="loginPassword" aria-label="Toggle password visibility"></button>
+                </div>
+                <div class="forgot-password">Forgot Password?</div>
+                <button type="button" class="signup-btn" data-action="handleLoginSubmit">Login</button>
+                <div class="login-link">Don't have an account? <a href="#" data-action="openSignUpFromLogin">Sign Up</a></div>
+            </div>
+        </div>
+
+        <!-- Sign Up Screen -->
+        <div class="screen signup-screen hidden" id="signupScreen">
+            <button type="button" class="back-btn" data-action="goBackToAuth"></button>
+            <div class="signup-header">
+                <div class="signup-title">Sign Up</div>
+                <img src="Untitled design (3).png" alt="SevaKey Logo" class="signup-logo">
+            </div>
+            <div class="role-selection">
+                <div class="role-buttons">
+                    <button type="button" class="role-btn" id="doctorBtn" data-role="doctor">DOCTOR</button>
+                    <button type="button" class="role-btn" id="patientBtn" data-role="patient">PATIENT</button>
+                </div>
+            </div>
+            <div class="signup-actions">
+                <button type="button" class="signup-btn" data-action="handleSignUpSubmit">Sign Up</button>
+                <div class="login-link">Already have an account? <a href="#" data-action="handleLogin">Login</a></div>
+            </div>
+        </div>
+
+        <!-- Doctor Form Screen -->
+        <div class="screen doctor-form hidden" id="doctorFormScreen">
+            <button type="button" class="back-btn" data-action="goBackToSignUp"></button>
+            <div class="signup-header">
+                <div class="signup-title">Sign Up</div>
+                <img src="Untitled design (3).png" alt="SevaKey Logo" class="signup-logo">
+            </div>
+            <div class="form-container">
+                <div class="form-field"><input id="doctorName" type="text" placeholder="Full Name"></div>
+                <div class="form-field"><input id="doctorRegId" type="text" placeholder="Registration ID"></div>
+                <div class="form-field"><input id="doctorEmail" type="email" placeholder="Email"></div>
+                <div class="form-field password-wrapper">
+                    <input id="doctorPassword" type="password" placeholder="Password">
+                    <button type="button" class="eye-btn" data-target="doctorPassword" aria-label="Toggle password visibility"></button>
+                </div>
+                <div class="form-field password-wrapper">
+                    <input id="doctorConfirmPassword" type="password" placeholder="Confirm Password">
+                    <button type="button" class="eye-btn" data-target="doctorConfirmPassword" aria-label="Toggle password visibility"></button>
+                </div>
+                <div class="terms-text">By signing up you agree to our Terms</div>
+                <button type="button" class="signup-btn" data-action="handleDoctorSignUp">Sign Up</button>
+                <div class="login-link">Already have an account? <a href="#" data-action="goBackToAuth">Login</a></div>
+            </div>
+        </div>
+
+        <!-- Patient Form Screen -->
+        <div class="screen patient-form hidden" id="patientFormScreen">
+            <button type="button" class="back-btn" data-action="goBackToSignUp"></button>
+            <div class="signup-header">
+                <div class="signup-title">Sign Up</div>
+                <img src="Untitled design (3).png" alt="SevaKey Logo" class="signup-logo">
+            </div>
+            <div class="form-container">
+                <div class="form-field"><input id="patientName" type="text" placeholder="Full Name"></div>
+                <div class="form-field"><input id="patientEmail" type="email" placeholder="Email"></div>
+                <div class="form-field password-wrapper">
+                    <input id="patientPassword" type="password" placeholder="Password">
+                    <button type="button" class="eye-btn" data-target="patientPassword" aria-label="Toggle password visibility"></button>
+                </div>
+                <div class="form-field password-wrapper">
+                    <input id="patientConfirm" type="password" placeholder="Confirm Password">
+                    <button type="button" class="eye-btn" data-target="patientConfirm" aria-label="Toggle confirm password visibility"></button>
+                </div>
+                <div class="terms-text">By signing up you agree to our Terms</div>
+                <button type="button" class="signup-btn" data-action="goToOnboarding">Sign Up</button>
+                <div class="login-link">Already have an account? <a href="#" data-action="goBackToAuth">Login</a></div>
+            </div>
+        </div>
+
+        <!-- Onboarding Screens -->
+        <div class="screen onboarding-screen hidden" id="onboarding1">
+            <button type="button" class="back-btn" data-action="backToPatientFormFromOnboard"></button>
+            <img src="patient_1.png" alt="Onboard 1" class="onboard-art">
+            <div class="onboarding-title">Your Health, <br>One ID Away</div>
+            <div class="onboard-controls">
+                <button type="button" class="onboard-btn onboard-back" data-action="backToPatientFormFromOnboard">Back</button>
+                <button type="button" class="onboard-btn onboard-next" data-page="2">Next</button>
+            </div>
+        </div>
+
+        <div class="screen onboarding-screen hidden" id="onboarding2">
+            <button type="button" class="back-btn" data-action="showOnboardingPage" data-page="1"></button>
+            <img src="Personal files-amico.png" alt="Onboard 2" class="onboard-art">
+            <div class="onboarding-title">No Files, <br>No Repeats,<br> Just Care</div>
+            <div class="onboard-controls">
+                <button type="button" class="onboard-btn onboard-back" data-action="showOnboardingPage" data-page="1">Back</button>
+                <button type="button" class="onboard-btn onboard-next" data-page="3">Next</button>
+            </div>
+        </div>
+
+        <div class="screen onboarding-screen hidden" id="onboarding3">
+            <button type="button" class="back-btn" data-action="showOnboardingPage" data-page="2"></button>
+            <img src="Medical care-amico.png" alt="Onboard 3" class="onboard-art">
+            <div class="onboarding-title">Give your Health <br> a Voice</div>
+            <button type="button" class="get-started-btn" data-action="finishOnboarding">Get Started</button>
+        </div>
+
+        <!-- Doctor Onboarding Screens -->
+        <div class="screen onboarding-screen hidden" id="doctorOnboarding1">
+            <button type="button" class="back-btn" data-action="backToDoctorFormFromOnboard"></button>
+            <img src="Doctors-cuate.png" alt="Doctor Onboard 1" class="onboard-art">
+            <div class="onboarding-title">Your Time Should Cure, <br> Not Write</div>
+            <div class="onboard-controls">
+                <button type="button" class="onboard-btn onboard-back" data-action="backToDoctorFormFromOnboard">Back</button>
+                <button type="button" class="onboard-btn onboard-next" data-page="2" data-doctor="true">Next</button>
+            </div>
+        </div>
+
+        <div class="screen onboarding-screen hidden" id="doctorOnboarding2">
+            <button type="button" class="back-btn" data-action="showDoctorOnboardingPage" data-page="1"></button>
+            <img src="Medicine-rafiki.png" alt="Doctor Onboard 2" class="onboard-art">
+            <div class="onboarding-title">No Files,<br>No Repeats,<br>Just Care</div>
+            <div class="onboard-controls">
+                <button type="button" class="onboard-btn onboard-back" data-action="showDoctorOnboardingPage" data-page="1">Back</button>
+                <button type="button" class="onboard-btn onboard-next" data-page="3" data-doctor="true">Next</button>
+            </div>
+        </div>
+
+        <div class="screen onboarding-screen hidden" id="doctorOnboarding3">
+            <button type="button" class="back-btn" data-action="showDoctorOnboardingPage" data-page="2"></button>
+            <img src="Medical prescription-bro.png" alt="Doctor Onboard 3" class="onboard-art">
+            <div class="onboarding-title">Give your Prescription <br> a Voice</div>
+            <button type="button" class="get-started-btn" data-action="finishDoctorOnboarding">Get Started</button>
+        </div>
+
+        <!-- HOME SCREEN -->
+        <div class="screen home-screen hidden" id="homeScreen">
+            <div class="home-top-bar">
+                <div class="welcome-message">Welcome, Dr. Sharma!</div>
+                <div class="profile-pic" data-action="handleProfileClick">
+                    <span>DS</span>
+                </div>
+            </div>
+            <div class="carousel-container" id="carouselContainer">
+                <div class="carousel">
+                    <div class="card front">
+                        <div class="card-header">
+                            <div class="app-name-card">
+                                <span class="seva">Seva</span><span class="key">Key</span>
+                            </div>
+                        </div>
+                        <div class="user-info">
+                            <div class="info-row">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value">Dr. Rajesh Sharma</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Specialization:</span>
+                                <span class="info-value">Cardiology</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Hospital:</span>
+                                <span class="info-value">City Medical Center</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Experience:</span>
+                                <span class="info-value">12 years</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">ID:</span>
+                                <span class="info-value">1234-5678-9012</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="user-id">ID: SK-2024-001</div>
+                            <button type="button" class="visibility-toggle" data-action="toggleInfoVisibility">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card back">
+                        <div class="back-content">
+                            <div class="app-name-card">
+                                <span class="seva">Seva</span><span class="key">Key</span>
+                            </div>
+                            <button class="generate-btn" data-action="generateTempKey">Generate Temporary Sevakey</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="medical-records-section">
+                <div class="section-header">
+                    <h2>Medical Record</h2>
+                    <button class="add-record-btn" data-action="addNewRecord">
+                        <i class="fas fa-plus"></i> Add new record
+                    </button>
+                </div>
+                <div class="records-list">
+                    <div class="record-item">
+                        <div class="record-date">15-08-2025</div>
+                        <div class="record-purpose">Purpose: Heart Checkup</div>
+                        <div class="record-location">Location: ABC Hospital</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-date">15-08-2025</div>
+                        <div class="record-purpose">Purpose: Heart Checkup</div>
+                        <div class="record-location">Location: ABC Hospital</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generate Key Modal -->
+        <div class="modal-overlay hidden" id="keyModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Sevakey</h3>
+                    <button class="close-btn" data-action="closeKeyModal">&times;</button>
+                </div>
+                <div class="modal-validity-list">
+                    <div class="modal-validity-item">
+                        <div class="modal-validity-text">Validity:</div>
+                        <div class="modal-clock-icon"><i class="far fa-clock"></i></div>
+                    </div>
+                    <div class="modal-validity-item">
+                        <div class="modal-validity-text">Validity:</div>
+                        <div class="modal-clock-icon"><i class="far fa-clock"></i></div>
+                    </div>
+                    <div class="modal-validity-item">
+                        <div class="modal-validity-text">Validity:</div>
+                        <div class="modal-clock-icon"><i class="far fa-clock"></i></div>
+                    </div>
+                </div>
+                <button class="generate-confirm-btn" data-action="generateKeyConfirmed">
+                    <i class="fas fa-key"></i> Generate Temporary Sevakey
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Screens -->
+        <div class="screen settings-screen hidden" id="settingsScreen">
+            <div class="settings-header main-settings-header">
+                <button type="button" class="back-btn" data-action="goBackToHomeFromSettings"></button>
+                <h2 class="settings-title main-settings-title">Settings</h2>
+            </div>
+            <div class="settings-content">
+                <div class="user-profile-section">
+                    <div class="profile-avatar" id="settingsAvatar"></div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="settingsUserName"></h3>
+                        <p class="user-email" id="settingsUserEmail">Registered User</p>
+                    </div>
+                </div>
+                <div class="settings-options">
+                    <div class="settings-item" data-action="openAccountSettings">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Account</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" data-action="openNotificationSettings">
+                        <i class="fas fa-bell"></i>
+                        <span>Notification</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" data-action="openAccessibilitySettings">
+                        <i class="fas fa-universal-access"></i>
+                        <span>Accessibility</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" data-action="openLanguageSettings">
+                        <i class="fas fa-language"></i>
+                        <span>Language</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Settings Screen -->
+        <div class="screen account-settings-screen hidden" id="accountSettingsScreen">
+            <div class="settings-header sub-settings-header">
+                <button type="button" class="back-btn" data-action="goBackToSettings"></button>
+                <h2 class="settings-title sub-settings-title">Account</h2>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h3 class="section-title">Personal Information</h3>
+                    <div class="settings-options">
+                        <div class="settings-item" data-action="openEditProfile">
+                            <i class="fas fa-user-edit"></i>
+                            <span>Edit Profile</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="settings-item" data-action="openChangePassword">
+                            <i class="fas fa-lock"></i>
+                            <span>Change Password</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="settings-item" data-action="openPrivacySettings">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privacy Settings</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Professional Information</h3>
+                    <div class="settings-options">
+                        <div class="settings-item" data-action="openProfessionalDetails">
+                            <i class="fas fa-briefcase-medical"></i>
+                            <span>Professional Details</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="settings-item" data-action="openQualifications">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Qualifications</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="settings-item" data-action="openLicenseInfo">
+                            <i class="fas fa-id-card"></i>
+                            <span>License Information</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Account Management</h3>
+                    <div class="settings-options">
+                        <div class="settings-item logout-item" data-action="handleLogout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </div>
+                        <div class="settings-item delete-item" data-action="showDeleteAccount">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Delete Account</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Settings Screens (Notification, Accessibility, Language) -->
+        <!-- These follow the same pattern but are omitted for brevity -->
+        <!-- Include similar structure for notification-settings-screen, accessibility-settings-screen, language-settings-screen -->
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
